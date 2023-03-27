@@ -1,0 +1,245 @@
+.box-table-head {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box-table-head .box-table-left {
+    display: flex;
+}
+
+/* CSS Search */
+.box-table-head .box-table-left .search {
+    border: 1px solid #f2eded;
+    display: flex;
+    width: 300px;
+    height: 38px;
+    border-radius: 6px;
+    overflow: hidden;
+    align-items: center;
+    position: relative;
+    margin-right: 20px;
+}
+
+.box-table-head .search .input-search {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding-left: 40px;
+    padding-right: 10px;
+    font-size: 13px;
+    height: 100%;
+    font-weight: 400;
+    background: #fff;
+    color: #333;
+}
+
+.box-table-head .search .input-search::placeholder {
+    color: #b8b8bd;
+}
+
+.box-table-head .search .icon-search {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* CSS Filter */
+.box-filter {
+    display: flex;
+    align-items: center;
+}
+
+.box-filter .btn-filter {
+    margin-left: 5px;
+    height: 38px;
+    padding: 0px 10px;
+    font-weight: 300;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    border: 1px solid #f2eded;
+    background-color: #ffffff;
+    transition: all 0.1s ease-in-out;
+}
+
+.btn-filter span {
+    font-size: 13px;
+    font-weight: 400;
+    color: #747171;
+}
+
+.box-filter .btn-filter .icon-btn-filter {
+    margin-right: 5px;
+}
+
+.box-filter .btn-filter:hover {
+    background-color: #f5efef;
+}
+
+.box-table-head .dropdown {
+    width: 200px;
+    height: 38px;
+    border: 1px solid #f2eded;
+    padding-left: 15px;
+    padding-right: 8px;
+    border-radius: 5px;
+    background: #fff;
+    position: relative;
+}
+
+.box-table-head .dropdown .dropbtn {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.box-table-head .dropdown .dropbtn span {
+    font-size: 13px;
+    font-weight: 400;
+    color: #747171;
+}
+
+ul.dropdown-content {
+    background: #fff;
+    box-shadow: 1px 1px 4px rgba(83, 83, 83, 0.1),
+        -1px -1px 4px rgba(83, 83, 83, 0.1);
+    width: 200px;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    border-radius: 6px;
+    padding: 10px 0px;
+}
+
+ul.dropdown-content li {
+    list-style: none;
+    width: 100%;
+    height: 33px;
+    padding: 0px 15px;
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    color: #747171;
+}
+
+ul.dropdown-content li:first-child {
+    color: #ddcdcd;
+}
+
+ul.dropdown-content li:first-child:hover {
+    cursor: no-drop;
+    background: #fff;
+}
+
+ul.dropdown-content li:hover {
+    background: #f5f9fa;
+}
+
+
+.btn-row-filter {
+    background-color: #fff;
+    height: 38px;
+    padding: 0px 15px;
+    border: 1px solid #f2eded;
+    border-radius: 5px;
+    margin-left: 20px;
+    color: #747171;
+    display: flex;
+    align-items: center;
+    transition: all 0.1s ease-in-out;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.btn-row-filter:hover {
+    background-color: #f5f9fa;
+}
+
+.btn-row-filter-icon {
+    margin-right: 5px;
+}
+
+.box-table-head .btnadd {
+    border: none;
+    background-color: #fff;
+    border: 1px solid #f2eded;
+    color: #747171;
+    outline: none;
+    border-radius: 5px;
+    height: 37px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.box-table-head .btnadd:hover {
+    background-color: #f5f9fa;
+}
+
+.box-table-head .icon-btn-add {
+    margin-right: 5px;
+}
+
+.box-table-body {
+    margin-top: 20px;
+    border-top: 1px solid #f2eded;
+    border-bottom: 1px solid #f2eded;
+    /* border-radius: 5px; */
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.box-table-body table {
+    font-size: 13.5px;
+    width: 100%;
+    color: #413f3f;
+}
+
+.box-table-body tr {
+    border-bottom: 1px solid rgb(241, 235, 235);
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+}
+
+.box-table-body th,
+td {
+    padding: 0px 25px;
+}
+
+.box-table-body th {
+    font-weight: 500;
+}
+
+.box-table-body tr:hover {
+    background-color: #f7f3f3;
+}
+
+.box-table-body tr.row-head {
+    background-color: #ffffff;
+}
+
+.box-table-body tbody tr:last-child {
+    border-bottom: none;
+}
+
+.box-table-body td .icon-action {
+    margin-right: 8px;
+}

@@ -1,0 +1,197 @@
+.form-add {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-add .box-left {
+    width: 55%;
+}
+
+.form-add .form-group {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.form-add .box-left .form-group label {
+    font-size: 14px;
+    color: #63666b;
+    font-weight: 400;
+    margin-bottom: 7px;
+}
+
+.form-add .box-left .form-group input {
+    height: 34px;
+    border-radius: 5px;
+    border: 1px solid #f2eded;
+    outline: none;
+    padding: 0px 10px;
+    font-size: 13px;
+    color: #63666b;
+}
+
+.box-head-modal {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    color: #333;
+    font-weight: 500;
+}
+
+.content-modal {
+    font-size: 15px;
+}
+
+.btn-action {
+    border: none;
+    height: 38px;
+    padding: 0px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #f2eded;
+}
+
+.btn-action:hover {
+    color: #333;
+    background-color: #f5f9fa;
+}
+
+.form-add .box-right {
+    width: 42%;
+}
+
+.form-add .box-left .box-left-buttom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-add .box-left .box-left-buttom button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    width: 200px;
+    height: 37px;
+    border-radius: 5px;
+    border: 1px solid #f2eded;
+    outline: none;
+    padding: 0px 10px;
+    font-size: 13px;
+    color: #747171;
+}
+
+.form-add .box-right .box-right-top {
+    margin-top: 37px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-add .box-right .box-right-top .delete-images {
+    height: 35px;
+    width: 45%;
+    border: 1px solid #f2eded;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 13px;
+    background-color: #f5f9fa;
+    color: #b1afaf;
+    pointer-events: none;
+    cursor: no-drop;
+}
+
+.form-add .box-right .box-right-top .delete-images.active {
+    background-color: #fff;
+    color: #747171;
+    cursor: pointer;
+    pointer-events: auto
+}
+
+.form-add .box-right .box-right-top .delete-images.active:hover {
+    background: #f5f9fa;
+}
+
+.form-add .box-right .box-right-top .delete-images span {
+    margin-left: 5px;
+}
+
+.form-add .box-right .box-right-top label {
+    border: 1px solid #f2eded;
+    height: 35px;
+    border: 1px solid #f2eded;
+    background: #fff;
+    width: 50%;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #63666b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.form-add .box-right .box-right-top label span {
+    margin-left: 5px;
+}
+
+.form-add .box-right .box-right-top label:hover {
+    background: #f5f9fa;
+}
+
+.box-right-buttom {
+    border: 2px dashed #f2eded;
+    border-radius: 8px;
+    width: 100%;
+    height: 288px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-right-buttom .box-text-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-right-buttom .box-text-preview .text-browse {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #63666b;
+}
+
+.box-right-buttom .box-text-preview .btn-browse {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #63666b;
+    background-color: #fff;
+    border: 1px solid #f2eded;
+    height: 38px;
+    padding: 0px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.box-right-buttom .box-text-preview .btn-browse:hover {
+    background-color: #f5f9fa;
+}
+
+.box-right-buttom .image-preview {
+    width: 80%;
+    border-radius: 10px;
+}
