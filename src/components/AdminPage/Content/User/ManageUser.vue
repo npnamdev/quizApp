@@ -3,12 +3,17 @@
     <h2 class="content-title">Manage User</h2>
     <TableUser
       :setModalCreateUser="setModalCreateUser"
-      :setModalDeleteUser="setModalDeleteUser"
       :handleClickBtnDelete="handleClickBtnDelete"
+      :handleClickBtnUpdate="handleClickBtnUpdate"
     />
     <ModalCreateUser
       :modalCreateUser="modalCreateUser"
       :setModalCreateUser="setModalCreateUser"
+    />
+    <ModalUpdateUser
+      :modalUpdateUser="modalUpdateUser"
+      :setModalUpdateUser="setModalUpdateUser"
+      :dataUpdate="dataUpdate"
     />
     <ModalDeleteUser
       :modalDeleteUser="modalDeleteUser"
@@ -16,14 +21,14 @@
       :handkeSubmitDelete="handkeSubmitDelete"
       :dataDelete="dataDelete"
     />
-    <pre>{{ $store.state.users }}</pre>
+    <!-- <pre>{{ $store.state.users }}</pre> -->
   </div>
 </template>
-
 
 <script>
 import TableUser from "./TableUser.vue";
 import ModalCreateUser from "./ModalCreateUser.vue";
+import ModalUpdateUser from "./ModalUpdateUser.vue";
 import ModalDeleteUser from "./ModalDeleteUser.vue";
 
 // import { mapState, mapActions } from "vuex";
@@ -32,7 +37,9 @@ export default {
   data() {
     return {
       modalCreateUser: false,
+      modalUpdateUser: false,
       modalDeleteUser: false,
+      dataUpdate: "",
       dataDelete: "",
     };
   },
@@ -40,17 +47,25 @@ export default {
     setModalCreateUser(value) {
       this.modalCreateUser = value;
     },
+    setModalUpdateUser(value) {
+      this.modalUpdateUser = value;
+    },
     setModalDeleteUser(value) {
       this.modalDeleteUser = value;
     },
+    handleClickBtnUpdate(user) {
+      this.modalUpdateUser = true;
+      this.dataUpdate = user;
+    },
     handleClickBtnDelete(user) {
       this.modalDeleteUser = true;
-      this.dataDelete = user._id;
+      this.dataDelete = user;
     },
   },
   components: {
     TableUser,
     ModalCreateUser,
+    ModalUpdateUser,
     ModalDeleteUser,
   },
   created() {

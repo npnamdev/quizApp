@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-modal v-model="modalCreate" size="lg" no-close-on-backdrop>
+    <b-modal v-model="modalUpdate" size="lg" no-close-on-backdrop>
       <template #header>
         <div class="box-head-modal">
-          Add User
+          Update User
           <box-icon
             name="x"
             color="#867070"
@@ -23,7 +23,7 @@
 
             <div class="form-group">
               <label for="email">Email</label>
-              <input v-model="email" id="email" type="text" />
+              <input disabled v-model="email" id="email" type="text" />
             </div>
 
             <div class="form-group">
@@ -139,22 +139,20 @@
 </template>
 
 <script>
-import "../../../../assets/css/modalCreateUser.css";
+// import "../../../../assets/css/modalCreateUser.css";
 
 export default {
   data() {
     return {
-      modalCreate: this.modalCreateUser,
+      modalUpdate: this.modalUpdateUser,
       username: "",
-      password: "",
       email: "",
+      password: "",
       phone: "",
       address: "",
-      role: "user",
-      imageFile: null,
-      imagePreview: null,
-
-      showDropdownAddress: false,
+      role: "",
+      imageFile: "",
+      imagePreview: "",
       roleItems: ["user", "admin"],
       addressItems: [
         "An Giang",
@@ -223,7 +221,7 @@ export default {
       ],
     };
   },
-  props: ["modalCreateUser", "setModalCreateUser"],
+  props: ["modalUpdateUser", "setModalUpdateUser", "dataUpdate"],
   methods: {
     previewImage(event) {
       const file = event.target.files[0];
@@ -255,35 +253,36 @@ export default {
     },
 
     handleClone() {
-      this.username = "";
-      this.email = "";
-      this.password = "";
-      this.phone = "";
-      this.address = "";
-      this.imageFile = "";
-      this.role = "";
-      this.imagePreview = "";
-      this.setModalCreateUser(false);
+      this.setModalUpdateUser(false);
     },
 
-    async handleCreateUser() {
-      const user = {
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        phone: this.phone,
-        address: this.address,
-        avatar: this.imageFile,
-        role: this.role,
-      };
+    // async handleCreateUser() {
+    //   const user = {
+    //     username: this.username,
+    //     password: this.password,
+    //     phone: this.phone,
+    //     address: this.address,
+    //     avatar: this.imageFile,
+    //     role: this.role,
+    //   };
 
-      await this.$store.dispatch("addUser", user);
-      this.handleClone();
-    },
+    //   await this.$store.dispatch("addUser", user);
+    //   this.handleClone();
+    // },
   },
   watch: {
-    modalCreateUser(newValue) {
-      this.modalCreate = newValue;
+    modalUpdateUser(newValue) {
+      this.modalUpdate = newValue;
+    },
+
+    dataUpdate(newValue) {
+      this.username = newValue.username;
+      this.email = newValue.email;
+      this.password = newValue.password;
+      this.phone = newValue.phone;
+      this.address = newValue.address;
+      this.role = newValue.role;
+      this.imagePreview = newValue.avatar;
     },
   },
 };

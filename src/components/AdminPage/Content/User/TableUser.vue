@@ -74,7 +74,7 @@
             <th>Phone</th>
             <th>Address</th>
             <th>Role</th>
-            <th>Time</th>
+            <th>Date</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -86,7 +86,7 @@
             <td>{{ user.phone }}</td>
             <td>{{ user.address }}</td>
             <td>{{ user.role }}</td>
-            <td>{{ user.createdAt }}</td>
+            <td>{{ formatDate(user.createdAt) }}</td>
             <td>
               <box-icon
                 class="icon-action"
@@ -94,6 +94,7 @@
                 size="18px"
                 animation="tada-hover"
                 name="edit"
+                @click="handleClickBtnUpdate(user)"
               ></box-icon>
               <box-icon
                 @click="handleClickBtnDelete(user)"
@@ -113,12 +114,12 @@
 
 
 
+ 
 
 <script>
 import "../../../../assets/css/tableUser.css";
-
 export default {
-  props: ["setModalCreateUser", "setModalDeleteUser", "handleClickBtnDelete"],
+  props: ["setModalCreateUser", "handleClickBtnDelete", "handleClickBtnUpdate"],
   data() {
     return {
       showDropdown: false,
@@ -127,6 +128,17 @@ export default {
     };
   },
   methods: {
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+
+      let checkDay = day < 10 ? "0" + day : day;
+      let checkMonth = month < 10 ? "0" + month : month;
+
+      return `${checkDay}/${checkMonth}/${year}`;
+    },
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
     },

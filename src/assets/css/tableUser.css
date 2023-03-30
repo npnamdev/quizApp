@@ -203,7 +203,6 @@ ul.dropdown-content li:hover {
     margin-top: 20px;
     border-top: 1px solid #f2eded;
     border-bottom: 1px solid #f2eded;
-    /* border-radius: 5px; */
     background-color: #fff;
     overflow: hidden;
 }
@@ -220,6 +219,8 @@ ul.dropdown-content li:hover {
     height: 50px;
     cursor: pointer;
 }
+
+
 
 .box-table-body th,
 td {

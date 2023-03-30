@@ -14,7 +14,8 @@
         </div>
       </template>
       <div class="content-modal">
-        Are you sure you want to delete the <span>nam</span> user?
+        Are you sure you want to delete the
+        <span>{{ dataDelete.username }}</span> user?
       </div>
       <template #footer>
         <button class="btn-action" @click="setModalDeleteUser(false)">
@@ -41,7 +42,7 @@ export default {
   ],
   methods: {
     handleSubmitDelete() {
-      this.$store.dispatch("deleteUser", this.dataDelete);
+      this.$store.dispatch("deleteUser", this.dataDelete._id);
       this.setModalDeleteUser(false);
     },
   },

@@ -86,6 +86,10 @@
     color: #747171;
 }
 
+.dropdown-toggle::after {
+    font-size: 16.5px;
+}
+
 .box-left-buttom .dropdown ul.dropdown-menu {
     border: none;
     box-shadow: 1px 1px 3px rgba(200, 195, 195, 0.5), -1px -1px 3px rgba(200, 195, 195, 0.5);
