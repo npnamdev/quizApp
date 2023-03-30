@@ -20,9 +20,7 @@
         <button class="btn-action" @click="setModalDeleteUser(false)">
           Close
         </button>
-        <button class="btn-action" @click="setModalDeleteUser(false)">
-          Save
-        </button>
+        <button class="btn-action" @click="handleSubmitDelete">Save</button>
       </template>
     </b-modal>
   </div>
@@ -35,7 +33,18 @@ export default {
       modalDelete: this.modalDeleteUser,
     };
   },
-  props: ["modalDeleteUser", "setModalDeleteUser"],
+  props: [
+    "modalDeleteUser",
+    "setModalDeleteUser",
+    "handkeSubmitDelete",
+    "dataDelete",
+  ],
+  methods: {
+    handleSubmitDelete() {
+      this.$store.dispatch("deleteUser", this.dataDelete);
+      this.setModalDeleteUser(false);
+    },
+  },
   watch: {
     modalDeleteUser(newValue) {
       this.modalDelete = newValue;

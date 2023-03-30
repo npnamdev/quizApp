@@ -4,6 +4,7 @@
     <TableUser
       :setModalCreateUser="setModalCreateUser"
       :setModalDeleteUser="setModalDeleteUser"
+      :handleClickBtnDelete="handleClickBtnDelete"
     />
     <ModalCreateUser
       :modalCreateUser="modalCreateUser"
@@ -12,7 +13,10 @@
     <ModalDeleteUser
       :modalDeleteUser="modalDeleteUser"
       :setModalDeleteUser="setModalDeleteUser"
+      :handkeSubmitDelete="handkeSubmitDelete"
+      :dataDelete="dataDelete"
     />
+    <pre>{{ $store.state.users }}</pre>
   </div>
 </template>
 
@@ -22,11 +26,14 @@ import TableUser from "./TableUser.vue";
 import ModalCreateUser from "./ModalCreateUser.vue";
 import ModalDeleteUser from "./ModalDeleteUser.vue";
 
+// import { mapState, mapActions } from "vuex";
+
 export default {
   data() {
     return {
       modalCreateUser: false,
       modalDeleteUser: false,
+      dataDelete: "",
     };
   },
   methods: {
@@ -36,11 +43,19 @@ export default {
     setModalDeleteUser(value) {
       this.modalDeleteUser = value;
     },
+    handleClickBtnDelete(user) {
+      this.modalDeleteUser = true;
+      this.dataDelete = user._id;
+    },
   },
   components: {
     TableUser,
     ModalCreateUser,
     ModalDeleteUser,
   },
+  created() {
+    this.$store.dispatch("getAllUsers");
+  },
+  watch: {},
 };
 </script>

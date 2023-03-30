@@ -59,6 +59,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   transition: all 0.5s ease-in-out;
+  z-index: 1000;
 }
 
 #content {

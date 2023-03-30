@@ -20,6 +20,7 @@
     align-items: center;
     position: relative;
     margin-right: 20px;
+    z-index: 1;
 }
 
 .box-table-head .search .input-search {
@@ -91,6 +92,7 @@
     border-radius: 5px;
     background: #fff;
     position: relative;
+    z-index: 1;
 }
 
 .box-table-head .dropdown .dropbtn {
@@ -137,11 +139,11 @@ ul.dropdown-content li {
     color: #747171;
 }
 
-ul.dropdown-content li:first-child {
+.box-filter ul.dropdown-content li:first-child {
     color: #ddcdcd;
 }
 
-ul.dropdown-content li:first-child:hover {
+.box-filter ul.dropdown-content li:first-child:hover {
     cursor: no-drop;
     background: #fff;
 }

@@ -37,38 +37,40 @@
             </div>
 
             <div class="box-left-buttom">
-              <div class="form-group">
+              <div class="form-group dropdown">
                 <label for="">Address</label>
-                <button>
-                  Address
-                  <box-icon
-                    size="20px"
-                    color="#95a5a6"
-                    name="chevron-down"
-                  ></box-icon>
-                </button>
-                <ul v-show="showDropdown" class="dropdown-content">
-                  <li aria-disabled="" class="all">All Role</li>
-                  <li
-                    v-for="(item, index) in items"
-                    :key="index"
-                    v-on:click="selectItem(index)"
+                <b-dropdown
+                  dropup
+                  :text="address ? address : 'choose the city'"
+                  menu-class="w-100"
+                >
+                  <b-dropdown-item
+                    href="#"
+                    v-for="item in addressItems"
+                    :key="item"
+                    @click="handleAddressClick(item)"
                   >
-                    <span class="list-drop"> {{ item }}</span>
-                  </li>
-                </ul>
+                    {{ item }}
+                  </b-dropdown-item>
+                </b-dropdown>
               </div>
 
-              <div class="form-group">
+              <div class="form-group dropdown">
                 <label for="">Role</label>
-                <button>
-                  Role
-                  <box-icon
-                    size="20px"
-                    color="#95a5a6"
-                    name="chevron-down"
-                  ></box-icon>
-                </button>
+                <b-dropdown
+                  dropup
+                  :text="role ? role : 'choose the role'"
+                  menu-class="w-100"
+                >
+                  <b-dropdown-item
+                    href="#"
+                    v-for="item in roleItems"
+                    :key="item"
+                    @click="handleRoleClick(item)"
+                  >
+                    {{ item }}
+                  </b-dropdown-item>
+                </b-dropdown>
               </div>
             </div>
           </div>
@@ -129,17 +131,10 @@
         </div>
       </div>
       <template #footer>
-        <p>{{ username }}</p>
-        <p>{{ password }}</p>
-        <p>{{ email }}</p>
-        <p>{{ phone }}</p>
-        <p>{{ imageFile }}</p>
         <button class="btn-action" @click="setModalCreateUser(false)">
           Close
         </button>
-        <button class="btn-action" @click="setModalCreateUser(false)">
-          Save
-        </button>
+        <button class="btn-action" @click="handleCreateUser">Save</button>
       </template>
     </b-modal>
   </div>
@@ -151,14 +146,83 @@ import "../../../../assets/css/modalCreateUser.css";
 export default {
   data() {
     return {
+      modalCreate: this.modalCreateUser,
       username: "",
       password: "",
       email: "",
       phone: "",
-      modalCreate: this.modalCreateUser,
-      imagePreview: null,
+      address: "",
+      role: "",
       imageFile: null,
-      selectedItem: "",
+      imagePreview: null,
+
+      showDropdownAddress: false,
+      roleItems: ["user", "admin"],
+      addressItems: [
+        "An Giang",
+        "Bà Rịa – Vũng Tàu",
+        "Bắc Giang",
+        "Bắc Kạn",
+        "Bạc Liêu",
+        "Bắc Ninh",
+        "Bến Tre",
+        "Bình Định",
+        "Bình Dương",
+        "Bình Phước",
+        "Bình Thuận",
+        "Cà Mau",
+        "Cần Thơ",
+        "Cao Bằng",
+        "Đà Nẵng",
+        "Đắk Lắk",
+        "Đắk Nông",
+        "Điện Biên",
+        "Đồng Nai",
+        "Đồng Tháp",
+        "Gia Lai",
+        "Hà Giang",
+        "Hà Nam",
+        "Hà Nội",
+        "Hà Tĩnh",
+        "Hải Dương",
+        "Hải Phòng",
+        "Hậu Giang",
+        "Hòa Bình",
+        "Hưng Yên",
+        "Khánh Hòa",
+        "Kiên Giang",
+        "Kon Tum",
+        "Lai Châu",
+        "Lâm Đồng",
+        "Lạng Sơn",
+        "Lào Cai",
+        "Long An",
+        "Nam Định",
+        "Nghệ An",
+        "Ninh Bình",
+        "Ninh Thuận",
+        "Phú Thọ",
+        "Phú Yên",
+        "Quảng Bình",
+        "Quảng Nam",
+        "Quảng Ngãi",
+        "Quảng Ninh",
+        "Quảng Trị",
+        "Sóc Trăng",
+        "Sơn La",
+        "Tây Ninh",
+        "Thái Bình",
+        "Thái Nguyên",
+        "Thanh Hóa",
+        "Thừa Thiên Huế",
+        "Tiền Giang",
+        "TP Hồ Chí Minh",
+        "Trà Vinh",
+        "Tuyên Quang",
+        "Vĩnh Long",
+        "Vĩnh Phúc",
+        "Yên Bái",
+      ],
     };
   },
   props: ["modalCreateUser", "setModalCreateUser"],
@@ -184,12 +248,27 @@ export default {
       this.imageFile = null;
     },
 
-    toggleDropdown() {
-      this.showDropdown = !this.showDropdown;
+    handleAddressClick(addressValue) {
+      this.address = addressValue;
     },
-    selectItem(index) {
-      this.selectedItem = this.items[index];
-      this.showDropdown = false;
+
+    handleRoleClick(roleValue) {
+      this.role = roleValue;
+    },
+
+    async handleCreateUser() {
+      const user = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        phone: this.phone,
+        address: this.address,
+        avatar: this.imageFile,
+        role: this.role,
+      };
+
+      await this.$store.dispatch("addUser", user);
+      this.setModalCreateUser(false);
     },
   },
   watch: {

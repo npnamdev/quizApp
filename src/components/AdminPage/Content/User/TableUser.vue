@@ -74,17 +74,19 @@
             <th>Phone</th>
             <th>Address</th>
             <th>Role</th>
+            <th>Time</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Admin</td>
-            <td>admin@gmail.com</td>
-            <td>0847436094</td>
-            <td>Hà Nội</td>
-            <td>Admin</td>
+          <tr v-for="(user, index) in $store.state.users" :key="user._id">
+            <td>{{ index + 1 }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.role }}</td>
+            <td>{{ user.createdAt }}</td>
             <td>
               <box-icon
                 class="icon-action"
@@ -94,103 +96,7 @@
                 name="edit"
               ></box-icon>
               <box-icon
-                @click="setModalDeleteUser(true)"
-                class="icon-action"
-                color="#867070"
-                size="18px"
-                animation="tada-hover"
-                name="trash"
-              ></box-icon>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Admin</td>
-            <td>admin@gmail.com</td>
-            <td>0847436094</td>
-            <td>Hà Nội</td>
-            <td>Admin</td>
-            <td>
-              <box-icon
-                class="icon-action"
-                color="#867070"
-                size="18px"
-                animation="tada-hover"
-                name="edit"
-              ></box-icon>
-              <box-icon
-                class="icon-action"
-                color="#867070"
-                size="18px"
-                animation="tada-hover"
-                name="trash"
-              ></box-icon>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Admin</td>
-            <td>admin@gmail.com</td>
-            <td>0847436094</td>
-            <td>Hà Nội</td>
-            <td>Admin</td>
-            <td>
-              <box-icon
-                class="icon-action"
-                color="#867070"
-                size="18px"
-                animation="tada-hover"
-                name="edit"
-              ></box-icon>
-              <box-icon
-                class="icon-action"
-                color="#867070"
-                size="18px"
-                animation="tada-hover"
-                name="trash"
-              ></box-icon>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Admin</td>
-            <td>admin@gmail.com</td>
-            <td>0847436094</td>
-            <td>Hà Nội</td>
-            <td>Admin</td>
-            <td>
-              <box-icon
-                class="icon-action"
-                color="#867070"
-                size="18px"
-                animation="tada-hover"
-                name="edit"
-              ></box-icon>
-              <box-icon
-                class="icon-action"
-                color="#867070"
-                size="18px"
-                animation="tada-hover"
-                name="trash"
-              ></box-icon>
-            </td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Admin</td>
-            <td>admin@gmail.com</td>
-            <td>0847436094</td>
-            <td>Hà Nội</td>
-            <td>Admin</td>
-            <td>
-              <box-icon
-                class="icon-action"
-                color="#867070"
-                size="18px"
-                animation="tada-hover"
-                name="edit"
-              ></box-icon>
-              <box-icon
+                @click="handleClickBtnDelete(user)"
                 class="icon-action"
                 color="#867070"
                 size="18px"
@@ -212,7 +118,7 @@
 import "../../../../assets/css/tableUser.css";
 
 export default {
-  props: ["setModalCreateUser", "setModalDeleteUser"],
+  props: ["setModalCreateUser", "setModalDeleteUser", "handleClickBtnDelete"],
   data() {
     return {
       showDropdown: false,

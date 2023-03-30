@@ -114,6 +114,7 @@ export default {
   left: 0;
   background-color: #fff;
   transition: all 0.5s ease-in-out;
+  z-index: 1000;
 }
 
 #wrapper-admin nav#sidebar .logo {
