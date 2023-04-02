@@ -1,11 +1,33 @@
 <template>
   <div id="content">
     <h2 class="content-title">Manage User</h2>
-    <TableUser
-      :setModalCreateUser="setModalCreateUser"
-      :handleClickBtnDelete="handleClickBtnDelete"
-      :handleClickBtnUpdate="handleClickBtnUpdate"
-    />
+    <div class="box-table">
+      <div class="box-table-head">
+        <div class="box-table-left">
+          <SearchUser />
+          <FilterUser />
+        </div>
+        <button class="btnadd" @click="setModalCreateUser(true)">
+          <box-icon
+            class="icon-btn-add"
+            name="plus"
+            color="#9e9ea7"
+            size="17px"
+          ></box-icon>
+          Add User
+        </button>
+      </div>
+
+      <TableUser
+        :setModalCreateUser="setModalCreateUser"
+        :handleClickBtnDelete="handleClickBtnDelete"
+        :handleClickBtnUpdate="handleClickBtnUpdate"
+      />
+    </div>
+
+    <div class="box-pagination">
+      <PaginationUser />
+    </div>
     <ModalCreateUser
       :modalCreateUser="modalCreateUser"
       :setModalCreateUser="setModalCreateUser"
@@ -21,7 +43,6 @@
       :handkeSubmitDelete="handkeSubmitDelete"
       :dataDelete="dataDelete"
     />
-    <!-- <pre>{{ $store.state.users }}</pre> -->
   </div>
 </template>
 
@@ -30,6 +51,9 @@ import TableUser from "./TableUser.vue";
 import ModalCreateUser from "./ModalCreateUser.vue";
 import ModalUpdateUser from "./ModalUpdateUser.vue";
 import ModalDeleteUser from "./ModalDeleteUser.vue";
+import SearchUser from "./SearchUser.vue";
+import PaginationUser from "./PaginationUser.vue";
+import FilterUser from "./FilterUser.vue";
 
 // import { mapState, mapActions } from "vuex";
 
@@ -67,10 +91,22 @@ export default {
     ModalCreateUser,
     ModalUpdateUser,
     ModalDeleteUser,
+    PaginationUser,
+    SearchUser,
+    FilterUser,
   },
   created() {
     this.$store.dispatch("getAllUsers");
   },
-  watch: {},
 };
 </script>
+
+
+<style scoped>
+.box-pagination {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+</style>

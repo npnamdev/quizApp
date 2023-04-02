@@ -78,11 +78,11 @@
             <input
               type="file"
               @change="previewImage"
-              id="input-preview"
+              id="input-preview-update"
               hidden
             />
             <div class="box-right-top">
-              <label for="input-preview">
+              <label for="input-preview-update">
                 <box-icon
                   size="18px"
                   color="#95a5a6"
@@ -104,7 +104,7 @@
             </div>
             <label
               class="box-right-buttom"
-              for="input-preview"
+              for="input-preview-update"
               @dragenter.prevent
               @dragover.prevent
               @dragleave.prevent
@@ -132,14 +132,14 @@
       </div>
       <template #footer>
         <button class="btn-action" @click="handleClone">Close</button>
-        <button class="btn-action" @click="handleCreateUser">Save</button>
+        <button class="btn-action" @click="handleUpdateUser">Save</button>
       </template>
     </b-modal>
   </div>
 </template>
 
 <script>
-// import "../../../../assets/css/modalCreateUser.css";
+import { toast } from "vue3-toastify";
 
 export default {
   data() {
@@ -226,6 +226,7 @@ export default {
     previewImage(event) {
       const file = event.target.files[0];
       this.readFile(file);
+      console.log("đã click");
     },
     onDrop(event) {
       const file = event.dataTransfer.files[0];
@@ -256,19 +257,32 @@ export default {
       this.setModalUpdateUser(false);
     },
 
-    // async handleCreateUser() {
-    //   const user = {
-    //     username: this.username,
-    //     password: this.password,
-    //     phone: this.phone,
-    //     address: this.address,
-    //     avatar: this.imageFile,
-    //     role: this.role,
-    //   };
+    async handleUpdateUser() {
+      const user = {
+        username: this.username,
+        password: this.password,
+        phone: this.phone,
+        address: this.address,
+        avatar: this.imageFile,
+        role: this.role,
+        id: this.dataUpdate._id,
+      };
 
-    //   await this.$store.dispatch("addUser", user);
-    //   this.handleClone();
-    // },
+      if (user.username == "") {
+        toast.error("Please Enter Username", {
+          autoClose: 3000,
+        });
+      } else if (user.password == "") {
+        toast.error("Please Enter Password", {
+          autoClose: 3000,
+        });
+      } else {
+        await this.$store.dispatch("updateUser", {
+          user,
+          handleClone: this.handleClone,
+        });
+      }
+    },
   },
   watch: {
     modalUpdateUser(newValue) {

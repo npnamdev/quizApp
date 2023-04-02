@@ -141,6 +141,8 @@
 <script>
 import "../../../../assets/css/modalCreateUser.css";
 
+import { toast } from "vue3-toastify";
+
 export default {
   data() {
     return {
@@ -150,11 +152,10 @@ export default {
       email: "",
       phone: "",
       address: "",
-      role: "user",
+      role: "",
       imageFile: null,
       imagePreview: null,
 
-      showDropdownAddress: false,
       roleItems: ["user", "admin"],
       addressItems: [
         "An Giang",
@@ -228,6 +229,7 @@ export default {
     previewImage(event) {
       const file = event.target.files[0];
       this.readFile(file);
+      event.target.value = null;
     },
     onDrop(event) {
       const file = event.dataTransfer.files[0];
@@ -262,6 +264,7 @@ export default {
       this.address = "";
       this.imageFile = "";
       this.role = "";
+      this.imageFile = "";
       this.imagePreview = "";
       this.setModalCreateUser(false);
     },
@@ -277,8 +280,24 @@ export default {
         role: this.role,
       };
 
-      await this.$store.dispatch("addUser", user);
-      this.handleClone();
+      if (user.username == "") {
+        toast.error("Please Enter Username", {
+          autoClose: 3000,
+        });
+      } else if (user.email == "") {
+        toast.error("Please Enter Email", {
+          autoClose: 3000,
+        });
+      } else if (user.password == "") {
+        toast.error("Please Enter Password", {
+          autoClose: 3000,
+        });
+      } else {
+        await this.$store.dispatch("addUser", {
+          user,
+          handleClone: this.handleClone,
+        });
+      }
     },
   },
   watch: {
