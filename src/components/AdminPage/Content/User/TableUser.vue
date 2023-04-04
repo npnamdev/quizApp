@@ -14,33 +14,40 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(user, index) in $store.state.users.users" :key="user._id">
-          <td>{{ index + 1 }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.phone }}</td>
-          <td>{{ user.address }}</td>
-          <td>{{ user.role }}</td>
-          <td>{{ formatDate(user.createdAt) }}</td>
-          <td>
-            <box-icon
-              class="icon-action"
-              color="#867070"
-              size="18px"
-              animation="tada-hover"
-              name="edit"
-              @click="handleClickBtnUpdate(user)"
-            ></box-icon>
-            <box-icon
-              @click="handleClickBtnDelete(user)"
-              class="icon-action"
-              color="#867070"
-              size="18px"
-              animation="tada-hover"
-              name="trash"
-            ></box-icon>
-          </td>
-        </tr>
+        <template v-if="$store.state.users.users.length > 0">
+          <tr v-for="(user, index) in $store.state.users.users" :key="user._id">
+            <td>{{ index + 1 }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.role }}</td>
+            <td>{{ formatDate(user.createdAt) }}</td>
+            <td>
+              <box-icon
+                class="icon-action"
+                color="#867070"
+                size="18px"
+                animation="tada-hover"
+                name="edit"
+                @click="handleClickBtnUpdate(user)"
+              ></box-icon>
+              <box-icon
+                @click="handleClickBtnDelete(user)"
+                class="icon-action"
+                color="#867070"
+                size="18px"
+                animation="tada-hover"
+                name="trash"
+              ></box-icon>
+            </td>
+          </tr>
+        </template>
+        <template v-else>
+          <tr>
+            <td colspan="8">No record exists!</td>
+          </tr>
+        </template>
       </tbody>
     </table>
   </div>
@@ -57,11 +64,10 @@ export default {
   props: ["setModalCreateUser", "handleClickBtnDelete", "handleClickBtnUpdate"],
   data() {
     return {
-      showDropdown: false,
       items: ["Admin", "User", "Test"],
-      selectedItem: "",
       iconClear: false,
       keyword: "",
+      check: this.$store.state.users.users > 0,
     };
   },
   methods: {
@@ -76,23 +82,6 @@ export default {
 
       return `${checkDay}/${checkMonth}/${year}`;
     },
-    toggleDropdown() {
-      this.showDropdown = !this.showDropdown;
-    },
-    selectItem(index) {
-      this.selectedItem = this.items[index];
-      this.showDropdown = false;
-    },
-
-    handleClearSearch() {
-      this.keyword = "";
-      this.$store.dispatch("searchUser", this.keyword);
-      this.iconClear = false;
-    },
-
-    async handleSearchUser() {
-      await this.$store.dispatch("searchUser", this.keyword);
-    },
   },
   watch: {
     keyword(newValue) {
@@ -102,6 +91,9 @@ export default {
         this.$store.dispatch("searchUser", this.keyword);
         this.iconClear = false;
       }
+    },
+    check(newValue) {
+      this.check = newValue;
     },
   },
 };

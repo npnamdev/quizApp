@@ -23,3 +23,9 @@ body {}
   background-color: #dbcfcf;
   border-radius: 10px;
 }
+
+/* Global CSS for Toastify */
+
+.Toastify__toast {
+  font-size: 14px;
+}

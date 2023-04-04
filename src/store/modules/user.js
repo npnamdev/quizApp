@@ -7,7 +7,10 @@ export default {
             users: [],
             limit: 5,
             page: 1,
+            search: "",
+            filter: "",
             totalUsers: 0,
+            totalPages: 0,
             isSearching: false,
         }
     },
@@ -29,6 +32,7 @@ export default {
                     commit('setUsers', updatedUsers);
                     toast.success(res.EM, {
                         autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
                     });
                     handleClone();
                     state.page = 1;
@@ -47,11 +51,37 @@ export default {
 
         async getAllUsers({ commit, state }) {
             try {
-                const res = await axios.get(`v1/api/users?limit=${state.limit}&page=${state.page}`);
-                if (res.EC === 0) {
-                    commit('setUsers', res.DT);
-                    state.totalUsers = res.totalUsers;
+                if (state.search && !state.filter) {
+                    const res = await axios.get(`v1/api/users?limit=${state.limit}&page=${state.page}&search=${state.search}`);
+                    if (res.EC === 0) {
+                        commit('setUsers', res.DT);
+                        state.totalUsers = res.totalUsers;
+                        state.totalPages = res.totalPages;
+                    }
+                } else if (state.filter && !state.search) {
+                    const res = await axios.get(`v1/api/users?limit=${state.limit}&page=${state.page}&filter=${state.filter}`);
+                    if (res.EC === 0) {
+                        commit('setUsers', res.DT);
+                        state.totalUsers = res.totalUsers;
+                        state.totalPages = res.totalPages;
+                    }
+                } else if (state.filter && state.search) {
+                    const res = await axios.get(`v1/api/users?limit=${state.limit}&page=${state.page}&search=${state.search}&filter=${state.filter}`);
+                    if (res.EC === 0) {
+                        commit('setUsers', res.DT);
+                        state.totalUsers = res.totalUsers;
+                        state.totalPages = res.totalPages;
+                    }
+                } else {
+                    const res = await axios.get(`v1/api/users?limit=${state.limit}&page=${state.page}`);
+                    if (res.EC === 0) {
+                        commit('setUsers', res.DT);
+                        state.totalUsers = res.totalUsers;
+                        state.totalPages = res.totalPages;
+                    }
                 }
+
+
             } catch (error) {
                 console.error(error);
             }
@@ -80,6 +110,7 @@ export default {
                     commit("setUsers", updatedUsers);
                     toast.success(res.EM, {
                         autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
                     });
                     handleClone();
                     state.page = 1;
@@ -104,23 +135,10 @@ export default {
                     commit('setUsers', updatedUsers);
                     toast.success(res.EM, {
                         autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
                     });
                     state.page = 1;
                     dispatch('getAllUsers');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        },
-
-
-        async searchUser({ commit, dispatch, state }, keyword) {
-            try {
-                const res = await axios.post(`v1/api/users/search/?keyword=${keyword}&limit=${state.limit}&page=${state.page}`);
-                if (res.EC === 0) {
-                    commit('setUsers', res.DT);
-                    state.totalUsers = res.totalUsers;
-                    // state.page = 1;
                 }
             } catch (error) {
                 console.error(error);
@@ -133,6 +151,15 @@ export default {
         },
         setPage(state, newPage) {
             state.page = newPage;
+        },
+        setSearch(state, newSearch) {
+            state.search = newSearch;
+        },
+        setFilter(state, newFilter) {
+            state.filter = newFilter;
+        },
+        setLimit(state, newLimit) {
+            state.limit = newLimit;
         },
     },
     getters: {

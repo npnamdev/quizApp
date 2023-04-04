@@ -1,5 +1,6 @@
 <template >
   <b-pagination
+    v-if="$store.state.users.totalPages > 1"
     v-model="page"
     :total-rows="totalUsers"
     :per-page="limit"
@@ -30,6 +31,7 @@ export default {
   created() {
     this.page = this.$store.state.users.page;
   },
+  methods: {},
   watch: {
     page(newPage) {
       this.$store.commit("setPage", newPage);
@@ -44,6 +46,9 @@ export default {
 
 
 <style >
+.pagination {
+  margin: 0;
+}
 .page-link {
   width: 35px;
   height: 35px;

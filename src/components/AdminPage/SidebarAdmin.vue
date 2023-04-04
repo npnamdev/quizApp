@@ -32,14 +32,14 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/admin/quiz" exact-active-class="active">
+        <router-link to="/admin/category" exact-active-class="active">
           <box-icon
             class="link-icon"
             color="#5F6A7A"
             size="19px"
             name="bar-chart-alt-2"
           ></box-icon>
-          <span class="link-title">Quiz</span>
+          <span class="link-title">Category</span>
         </router-link>
       </li>
       <li>

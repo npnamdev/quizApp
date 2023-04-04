@@ -271,10 +271,12 @@ export default {
       if (user.username == "") {
         toast.error("Please Enter Username", {
           autoClose: 3000,
+          position: toast.POSITION.BOTTOM_RIGHT,
         });
       } else if (user.password == "") {
         toast.error("Please Enter Password", {
           autoClose: 3000,
+          position: toast.POSITION.BOTTOM_RIGHT,
         });
       } else {
         await this.$store.dispatch("updateUser", {

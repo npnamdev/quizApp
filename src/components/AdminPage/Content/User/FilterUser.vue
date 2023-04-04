@@ -1,10 +1,17 @@
 <template>
   <div class="box-filter">
     <b-dropdown
-      :text="role ? role : 'All Role'"
+      :text="filter ? filter : 'All Role'"
       menu-class="w-100"
       class="dropbtn"
     >
+      <b-dropdown-item
+        href="#"
+        @click="handleRoleFilterClick('')"
+        class="dropdown-content"
+      >
+        All Role
+      </b-dropdown-item>
       <b-dropdown-item
         href="#"
         v-for="item in items"
@@ -17,7 +24,7 @@
     </b-dropdown>
 
     <!-- ds -->
-    <button class="btn-filter">
+    <button class="btn-filter" @click="handleFilterUser">
       <box-icon
         class="icon-btn-filter"
         name="filter"
@@ -27,16 +34,6 @@
       <span> Filter </span>
     </button>
   </div>
-
-  <button class="btn-row-filter">
-    <box-icon
-      name="objects-horizontal-center"
-      color="#959599"
-      size="16.5px"
-      class="btn-row-filter-icon"
-    ></box-icon>
-    Rows
-  </button>
 </template>
 
 
@@ -45,16 +42,31 @@ export default {
   data() {
     return {
       items: ["user", "admin"],
-      keyword: "",
-      role: "",
+      filter: "",
     };
   },
+  created() {
+    this.filter = this.$store.state.users.filter;
+  },
   methods: {
-    handleRoleFilterClick(roleValue) {
-      this.role = roleValue;
+    handleRoleFilterClick(filterValue) {
+      this.filter = filterValue;
+    },
+
+    async handleFilterUser() {
+      this.$store.commit("setPage", 1);
+      await this.$store.dispatch("getAllUsers", this.filter);
     },
   },
-  watch: {},
+  watch: {
+    filter(newValue) {
+      this.filter = newValue;
+      this.$store.commit("setFilter", newValue);
+    },
+    "$store.state.users.filter"(newFilter) {
+      this.filter = newFilter;
+    },
+  },
 };
 </script>
 

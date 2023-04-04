@@ -8,7 +8,7 @@
       @click="handleSearchUser"
     ></box-icon>
     <input
-      v-model="keyword"
+      v-model="search"
       class="input-search"
       type="text"
       placeholder="Search..."
@@ -31,28 +31,36 @@ export default {
   data() {
     return {
       iconClear: false,
-      keyword: "",
+      search: "",
     };
+  },
+  created() {
+    this.search = this.$store.state.users.search;
   },
   methods: {
     handleClearSearch() {
-      this.keyword = "";
-      this.$store.dispatch("searchUser", this.keyword);
+      this.search = "";
+      this.$store.dispatch("searchUser", this.search);
       this.iconClear = false;
     },
 
     async handleSearchUser() {
-      await this.$store.dispatch("searchUser", this.keyword);
+      this.$store.commit("setPage", 1);
+      await this.$store.dispatch("getAllUsers", this.search);
     },
   },
   watch: {
-    keyword(newValue) {
-      this.keyword = newValue;
+    search(newValue) {
+      this.search = newValue;
       this.iconClear = true;
-      if (this.keyword == "") {
-        this.$store.dispatch("searchUser", this.keyword);
+      this.$store.commit("setSearch", newValue);
+      if (this.search == "") {
+        this.$store.dispatch("getAllUsers", this.search);
         this.iconClear = false;
       }
+    },
+    "$store.state.users.search"(newSearch) {
+      this.search = newSearch;
     },
   },
 };

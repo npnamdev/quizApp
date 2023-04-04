@@ -6,6 +6,7 @@
         <div class="box-table-left">
           <SearchUser />
           <FilterUser />
+          <ShowRowUser />
         </div>
         <button class="btnadd" @click="setModalCreateUser(true)">
           <box-icon
@@ -26,6 +27,9 @@
     </div>
 
     <div class="box-pagination">
+      <span class="total-row">
+        Total number of records: {{ $store.state.users.totalUsers }}
+      </span>
       <PaginationUser />
     </div>
     <ModalCreateUser
@@ -54,8 +58,7 @@ import ModalDeleteUser from "./ModalDeleteUser.vue";
 import SearchUser from "./SearchUser.vue";
 import PaginationUser from "./PaginationUser.vue";
 import FilterUser from "./FilterUser.vue";
-
-// import { mapState, mapActions } from "vuex";
+import ShowRowUser from "./ShowRowUser.vue";
 
 export default {
   data() {
@@ -94,6 +97,7 @@ export default {
     PaginationUser,
     SearchUser,
     FilterUser,
+    ShowRowUser,
   },
   created() {
     this.$store.dispatch("getAllUsers");
@@ -104,9 +108,14 @@ export default {
 
 <style scoped>
 .box-pagination {
-  margin-top: 40px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  height: 100px;
+}
+
+.total-row {
+  font-size: 15px;
+  font-weight: 500;
 }
 </style>

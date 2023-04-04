@@ -4,7 +4,7 @@ import HomePage from '../components/HomePage/Home.vue';
 import AdminPage from '../components/AdminPage/Admin.vue';
 import Dashboard from '../components/AdminPage/Content/Dashboard/Dashboard.vue'
 import ManagePost from '../components/AdminPage/Content/Post/ManagePost.vue'
-import ManageQuiz from '../components/AdminPage/Content/Quiz/ManageQuiz.vue'
+import ManageCategory from '../components/AdminPage/Content/Category/ManageCategory.vue'
 import ManageUser from '../components/AdminPage/Content/User/ManageUser.vue'
 
 const routes = [
@@ -25,8 +25,8 @@ const routes = [
                 component: ManagePost
             },
             {
-                path: 'quiz',
-                component: ManageQuiz
+                path: 'category',
+                component: ManageCategory
             },
             {
                 path: 'user',
