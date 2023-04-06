@@ -56,7 +56,7 @@
     </ul>
     <ul id="menu-bottom">
       <li>
-        <router-link to="/post" exact-active-class="active">
+        <router-link to="" @click="setModalShow(true)">
           <box-icon
             class="link-icon"
             color="#5F6A7A"
@@ -65,9 +65,32 @@
           ></box-icon>
           <span class="link-title">Logout</span>
         </router-link>
+        <div>
+          <b-modal v-model="modalShow" no-close-on-backdrop>
+            <template #header>
+              <div class="box-head-modal">
+                Logout
+                <box-icon
+                  name="x"
+                  color="#867070"
+                  size="25px"
+                  class="icon-x"
+                  @click="setModalShow(false)"
+                ></box-icon>
+              </div>
+            </template>
+            <div class="content-modal">Are you sure you want to sign out?</div>
+            <template #footer>
+              <button class="btn-action" @click="setModalShow(false)">
+                Cancel
+              </button>
+              <button class="btn-action" @click="handleLogout">Ok</button>
+            </template>
+          </b-modal>
+        </div>
       </li>
       <li>
-        <a href="#">
+        <router-link to="">
           <box-icon
             class="link-icon"
             color="#5F6A7A"
@@ -76,7 +99,7 @@
             animation="spin"
           ></box-icon>
           <span class="link-title">Setting</span>
-        </a>
+        </router-link>
       </li>
     </ul>
   </nav>
@@ -94,7 +117,17 @@ export default {
     return {
       imageIconPath: imageIcon,
       imageTextPath: imageText,
+      modalShow: false,
     };
+  },
+  methods: {
+    setModalShow(value) {
+      this.modalShow = value;
+    },
+    handleLogout() {
+      this.$router.push("/login");
+      setModalShow(false);
+    },
   },
   props: ["navbarMenu"],
 };

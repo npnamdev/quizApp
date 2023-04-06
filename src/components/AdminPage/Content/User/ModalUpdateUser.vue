@@ -226,7 +226,6 @@ export default {
     previewImage(event) {
       const file = event.target.files[0];
       this.readFile(file);
-      console.log("đã click");
     },
     onDrop(event) {
       const file = event.dataTransfer.files[0];

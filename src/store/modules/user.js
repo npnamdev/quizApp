@@ -12,6 +12,8 @@ export default {
             totalUsers: 0,
             totalPages: 0,
             isSearching: false,
+            token: null,
+            profileData: null,
         }
     },
     actions: {
@@ -25,8 +27,8 @@ export default {
                 formData.append("address", user.address);
                 formData.append("avatar", user.avatar);
                 formData.append("role", user.role || "user");
-
                 const res = await axios.post(`v1/api/users`, formData);
+
                 if (res.EC === 0) {
                     let updatedUsers = [...state.users, res.DT];
                     commit('setUsers', updatedUsers);
@@ -40,6 +42,7 @@ export default {
                 } else {
                     toast.error(res.EM, {
                         autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
                     });
                 }
             } catch (error) {
@@ -80,8 +83,6 @@ export default {
                         state.totalPages = res.totalPages;
                     }
                 }
-
-
             } catch (error) {
                 console.error(error);
             }
@@ -118,6 +119,7 @@ export default {
                 } else {
                     toast.error(res.EM, {
                         autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
                     });
                 }
             } catch (error) {
@@ -139,11 +141,43 @@ export default {
                     });
                     state.page = 1;
                     dispatch('getAllUsers');
+                } else {
+                    toast.error(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
                 }
             } catch (error) {
                 console.error(error);
             }
         },
+
+        async loginAdmin({ commit }, { auth, $router }) {
+            try {
+                const res = await axios.post('v1/api/login', auth);
+                if (res.EC === 0) {
+                    commit('setProfileData', res.DT)
+                    sessionStorage.setItem('profileData', JSON.stringify(res.DT))
+
+                    const token = res.DT.accessToken
+                    sessionStorage.setItem('token', token)
+                    commit('setToken', token)
+                    $router.push('/admin');
+                    toast.success(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                } else {
+                    toast.error(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
     },
     mutations: {
         setUsers(state, users) {
@@ -161,6 +195,12 @@ export default {
         setLimit(state, newLimit) {
             state.limit = newLimit;
         },
+        setToken(state, newToken) {
+            state.token = newToken;
+        },
+        setProfileData(state, newProfileData) {
+            state.profileData = newProfileData;
+        }
     },
     getters: {
     },

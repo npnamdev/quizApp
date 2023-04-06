@@ -22,7 +22,10 @@
         size="19px"
         animation="tada-hover"
       ></box-icon>
-      <img class="avatar" :src="imageAvatarPath" />
+      <img
+        class="avatar"
+        :src="profileData.avatar ? profileData.avatar : imageAvatarPath"
+      />
     </div>
   </div>
 </template>
@@ -31,13 +34,18 @@
 
 
 <script>
-import imageAvatar from "../../assets/images/avatar.jpg";
+import imageAvatar from "../../assets/images/avatar-none.webp";
 
 export default {
   data() {
     return {
       imageAvatarPath: imageAvatar,
+      profileData: null,
     };
+  },
+  created() {
+    const profileData = JSON.parse(sessionStorage.getItem("profileData"));
+    this.profileData = profileData;
   },
   props: ["setNavbarMenu"],
 };

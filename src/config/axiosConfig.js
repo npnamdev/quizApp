@@ -5,11 +5,11 @@ import 'nprogress/nprogress.css';
 NProgress.configure({
     showSpinner: false,
     easing: 'ease',
-    speed: 1000,
+    speed: 1300,
     trickle: true,
-    trickleSpeed: 100,
+    trickleSpeed: 200,
     template: `
-      <div class="bar" role="bar" style="background-color: #333;">
+      <div class="bar" role="bar" style="background-color: #3498db;">
         <div class="peg"></div>
       </div>
     `
@@ -20,8 +20,14 @@ const instance = axios.create({
     baseURL: 'http://localhost:8080/',
 })
 
+
 instance.interceptors.request.use(function (config) {
     NProgress.start();
+    const token = sessionStorage.getItem('token')
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`
+    }
+
     return config;
 }, function (error) {
     return Promise.reject(error);

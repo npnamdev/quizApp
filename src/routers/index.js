@@ -6,6 +6,7 @@ import Dashboard from '../components/AdminPage/Content/Dashboard/Dashboard.vue'
 import ManagePost from '../components/AdminPage/Content/Post/ManagePost.vue'
 import ManageCategory from '../components/AdminPage/Content/Category/ManageCategory.vue'
 import ManageUser from '../components/AdminPage/Content/User/ManageUser.vue'
+import Login from '../components/AdminPage/Content/Auth/Login.vue'
 
 const routes = [
     {
@@ -15,6 +16,15 @@ const routes = [
     {
         path: '/admin',
         component: AdminPage,
+        //Hàm này chạy trước khi vào router
+        beforeEnter: (to, from, next) => {
+            const token = sessionStorage.getItem('token')
+            if (!token) {
+                next('/login')
+            } else {
+                next()
+            }
+        },
         children: [
             {
                 path: '',
@@ -32,7 +42,11 @@ const routes = [
                 path: 'user',
                 component: ManageUser,
             },
-        ]
+        ],
+    },
+    {
+        path: '/login',
+        component: Login,
     },
 ]
 
