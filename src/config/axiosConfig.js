@@ -22,7 +22,7 @@ const instance = axios.create({
 
 
 instance.interceptors.request.use(function (config) {
-    NProgress.start();
+    // NProgress.start();
     const token = sessionStorage.getItem('token')
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`
@@ -34,10 +34,10 @@ instance.interceptors.request.use(function (config) {
 });
 
 instance.interceptors.response.use(function (response) {
-    NProgress.done();
+    // NProgress.done();
     return response && response.data ? response.data : response;
 }, function (error) {
-    NProgress.done();
+    // NProgress.done();
     return error && error.response && error.response.data ? error.response.data : Promise.reject(error);
 });
 
