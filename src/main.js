@@ -8,9 +8,10 @@ import 'boxicons';
 import router from './routers/index';
 import store from './store/store';
 import 'vue3-toastify/dist/index.css';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 const app = createApp(App);
-
+app.use(CKEditor)
 app.use(BootstrapVueNext);
 app.use(router);
 app.use(store)

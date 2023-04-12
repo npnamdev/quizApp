@@ -262,7 +262,6 @@ export default {
       this.password = "";
       this.phone = "";
       this.address = "";
-      this.imageFile = "";
       this.role = "";
       this.imageFile = "";
       this.imagePreview = "";

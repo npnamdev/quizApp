@@ -1,0 +1,18 @@
+import { createApp } from '/node_modules/.vite/deps/vue.js?v=33a60494'
+import App from '/src/App.vue'
+import '/src/assets/css/main.css';
+import BootstrapVueNext from '/node_modules/.vite/deps/bootstrap-vue-next.js?v=33a60494';
+import '/node_modules/bootstrap/dist/css/bootstrap.css';
+import '/node_modules/bootstrap-vue-next/dist/bootstrap-vue-next.css';
+import "/node_modules/.vite/deps/boxicons.js?v=33a60494";
+import router from '/src/routers/index.js?t=1681137887419';
+import store from '/src/store/store.js?t=1681132860481';
+import '/node_modules/vue3-toastify/dist/index.css';
+import __vite__cjsImport10__ckeditor_ckeditor5Vue from "/node_modules/.vite/deps/@ckeditor_ckeditor5-vue.js?v=33a60494"; const CKEditor = __vite__cjsImport10__ckeditor_ckeditor5Vue.__esModule ? __vite__cjsImport10__ckeditor_ckeditor5Vue.default : __vite__cjsImport10__ckeditor_ckeditor5Vue;
+
+const app = createApp(App);
+app.use(CKEditor)
+app.use(BootstrapVueNext);
+app.use(router);
+app.use(store)
+app.mount('#app');

@@ -23,10 +23,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(function (config) {
     // NProgress.start();
-    const token = sessionStorage.getItem('token')
-    if (token) {
-        config.headers['Authorization'] = `Bearer ${token}`
-    }
+    const token = sessionStorage.getItem('token');
+    config.headers['Authorization'] = `Bearer ${token}`
 
     return config;
 }, function (error) {

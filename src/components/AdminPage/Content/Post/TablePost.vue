@@ -10,7 +10,7 @@
           <th class="col-5">Status</th>
           <th class="col-6">CreatedAt</th>
           <th class="col-7">UpdatedAt</th>
-          <th class="col-7"></th>
+          <th class="col-7">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -26,11 +26,31 @@
             <td class="col-5">{{ formatDate(post.createdAt) }}</td>
             <td class="col-6">{{ formatDate(post.updatedAt) }}</td>
             <td class="col-8">
-              <box-icon
-                name="dots-vertical-rounded"
-                color="#333"
-                size="20px"
-              ></box-icon>
+              <div class="wp-8">
+                <box-icon
+                  name="detail"
+                  class="icon-action"
+                  color="#867070"
+                  size="18px"
+                  animation="tada-hover"
+                />
+                <box-icon
+                  class="icon-action"
+                  color="#867070"
+                  size="18px"
+                  animation="tada-hover"
+                  name="edit"
+                  @click="handleClickBtnUpdate(post)"
+                />
+                <box-icon
+                  @click="handleClickBtnDelete(post)"
+                  class="icon-action"
+                  color="#867070"
+                  size="18px"
+                  animation="tada-hover"
+                  name="trash"
+                />
+              </div>
             </td>
           </tr>
         </template>
@@ -49,10 +69,8 @@
  
 
 <script>
-import "../../../../assets/css/tableUser.css";
-
 export default {
-  props: ["setModalCreateUser", "handleClickBtnDelete", "handleClickBtnUpdate"],
+  props: ["handleClickBtnDelete", "handleClickBtnUpdate"],
   data() {
     return {
       items: ["Admin", "User", "Test"],
@@ -101,10 +119,9 @@ table.table-post,
 th,
 td {
   border-collapse: collapse;
-  padding: 10px 20px;
   line-height: 1.7;
   text-align: left;
-  color: rgb(65 63 63);
+  color: rgb(89, 85, 85);
   font-size: 14px;
   cursor: pointer;
 }
@@ -115,19 +132,21 @@ table.table-post {
 }
 
 table.table-post tr {
+  height: 60px;
   border-bottom: 1px solid #ebe5e5;
-}
-
-table.table-post thead tr {
-  padding: 20px 0px;
 }
 
 table.table-post tbody tr:hover {
   background-color: #f5f1f1;
 }
 
+table.table-post thead tr:hover {
+  background-color: #fff;
+}
+
 table.table-post th {
   font-weight: 500;
+  padding: 0px 20px;
 }
 
 table.table-post td {
@@ -136,6 +155,7 @@ table.table-post td {
   max-height: 50px;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 0px 20px;
 }
 
 td .wp-2 {
@@ -145,11 +165,13 @@ td .wp-2 {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 14px;
-  width: 350px;
+  min-width: 300px;
 }
 
-td.col-8 .icon {
-  font-size: 22px;
-  cursor: pointer;
+td .wp-8 {
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

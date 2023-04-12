@@ -11,17 +11,36 @@
 <script>
 import HeaderAdmin from "./HeaderAdmin.vue";
 import SidebarAdmin from "./SidebarAdmin.vue";
+import jwt_decode from "jwt-decode";
 
 export default {
   data() {
     return {
       navbarMenu: false,
+      token: null,
     };
+  },
+  created() {
+    this.token = sessionStorage.getItem("token");
+    this.checkToken();
   },
   methods: {
     setNavbarMenu() {
       this.navbarMenu = !this.navbarMenu;
       window.sessionStorage.setItem("navbarMenu", this.navbarMenu);
+    },
+    checkToken() {
+      const token = sessionStorage.getItem("token");
+      const profileData = sessionStorage.getItem("profileData");
+      if (token) {
+        const decoded = jwt_decode(token);
+        const currentTime = Date.now() / 1000;
+        if (decoded.exp < currentTime) {
+          sessionStorage.removeItem("token");
+          sessionStorage.removeItem("profileData");
+          this.$router.push("/login");
+        }
+      }
     },
   },
   mounted() {
@@ -33,6 +52,11 @@ export default {
   components: {
     HeaderAdmin,
     SidebarAdmin,
+  },
+  watch: {
+    $route(to, from) {
+      this.checkToken();
+    },
   },
 };
 </script>

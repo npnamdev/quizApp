@@ -17,45 +17,41 @@ export default {
         }
     },
     actions: {
-        // async addUser({ commit, dispatch, state }, { user, handleClone }) {
-        //     try {
-        //         const formData = new FormData();
-        //         formData.append("username", user.username);
-        //         formData.append("email", user.email);
-        //         formData.append("password", user.password);
-        //         formData.append("phone", user.phone);
-        //         formData.append("address", user.address);
-        //         formData.append("avatar", user.avatar);
-        //         formData.append("role", user.role || "user");
-        //         const res = await axios.post(`v1/api/users`, formData);
-
-        //         if (res.EC === 0) {
-        //             let updatedUsers = [...state.users, res.DT];
-        //             commit('setUsers', updatedUsers);
-        //             toast.success(res.EM, {
-        //                 autoClose: 3000,
-        //                 position: toast.POSITION.BOTTOM_RIGHT,
-        //             });
-        //             handleClone();
-        //             state.page = 1;
-        //             dispatch('getAllUsers');
-        //         } else {
-        //             toast.error(res.EM, {
-        //                 autoClose: 3000,
-        //                 position: toast.POSITION.BOTTOM_RIGHT,
-        //             });
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // },
+        async addPost({ commit, dispatch, state }, { post, handleClone }) {
+            try {
+                const formData = new FormData();
+                formData.append("title", post.title);
+                formData.append("description", post.description);
+                formData.append("content", post.content);
+                formData.append("categoryId", post.category);
+                formData.append("image", post.image);
+                const res = await axios.post(`v1/api/posts`, formData);
+                console.log(res);
+                if (res.EC === 0) {
+                    let updatedPosts = [...state.posts, res.DT];
+                    commit('setPosts', updatedPosts);
+                    toast.success(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                    handleClone();
+                    dispatch('getAllPosts');
+                } else {
+                    toast.error(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
 
 
 
         async getAllPosts({ commit, state }) {
             try {
                 const res = await axios.get(`v1/api/posts?limit=${state.limit}&page=${state.page}`);
-                console.log(res.DT);
                 if (res.EC === 0) {
                     commit('setPosts', res.DT);
                     state.totalPost = res.totalPost;
@@ -68,67 +64,66 @@ export default {
 
 
 
-        // async updateUser({ commit, dispatch, state }, { user, handleClone }) {
-        //     try {
-        //         const formData = new FormData();
-        //         formData.append("username", user.username);
-        //         formData.append("password", user.password);
-        //         formData.append("phone", user.phone);
-        //         formData.append("address", user.address);
-        //         formData.append("avatar", user.avatar);
-        //         formData.append("role", user.role);
+        async updatePost({ commit, dispatch, state }, { post, handleClone }) {
+            try {
+                const formData = new FormData();
+                formData.append("title", post.title);
+                formData.append("description", post.description);
+                formData.append("content", post.content);
+                formData.append("categoryId", post.category);
+                formData.append("image", post.image);
 
-        //         const res = await axios.put(`v1/api/users/${user.id}`, formData);
-        //         if (res.EC === 0) {
-        //             const updatedUsers = state.users.map((item) => {
-        //                 if (item.id === user.id) {
-        //                     return res.DT;
-        //                 }
-        //                 return item;
-        //             });
-        //             commit("setUsers", updatedUsers);
-        //             toast.success(res.EM, {
-        //                 autoClose: 3000,
-        //                 position: toast.POSITION.BOTTOM_RIGHT,
-        //             });
-        //             handleClone();
-        //             state.page = 1;
-        //             dispatch("getAllUsers");
-        //         } else {
-        //             toast.error(res.EM, {
-        //                 autoClose: 3000,
-        //                 position: toast.POSITION.BOTTOM_RIGHT,
-        //             });
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // },
+                const res = await axios.put(`v1/api/posts/${post.id}`, formData);
 
+                if (res.EC === 0) {
+                    const updatedPosts = state.posts.map((item) => {
+                        if (item.id === post.id) {
+                            return res.DT;
+                        }
+                        return item;
+                    });
+                    commit("setPosts", updatedPosts);
+                    toast.success(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                    handleClone();
+                    dispatch("getAllPosts");
+                } else {
+                    toast.error(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
 
 
-        // async deleteUser({ commit, dispatch, state }, userId) {
-        //     try {
-        //         const res = await axios.delete(`v1/api/users/${userId}`);
-        //         if (res.EC === 0) {
-        //             let updatedUsers = state.users.filter(user => user.id !== userId);
-        //             commit('setUsers', updatedUsers);
-        //             toast.success(res.EM, {
-        //                 autoClose: 3000,
-        //                 position: toast.POSITION.BOTTOM_RIGHT,
-        //             });
-        //             state.page = 1;
-        //             dispatch('getAllUsers');
-        //         } else {
-        //             toast.error(res.EM, {
-        //                 autoClose: 3000,
-        //                 position: toast.POSITION.BOTTOM_RIGHT,
-        //             });
-        //         }
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // },
+
+        async deletePost({ commit, dispatch, state }, postId) {
+            try {
+                const res = await axios.delete(`v1/api/posts/${postId}`);
+                console.log(res);
+                if (res.EC === 0) {
+                    let updatedPosts = state.posts.filter(post => post.id !== postId);
+                    commit('setPosts', updatedPosts);
+                    toast.success(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                    dispatch('getAllPosts');
+                } else {
+                    toast.error(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
 
     },
     mutations: {

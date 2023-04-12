@@ -1,7 +1,7 @@
 <template>
   <div class="box-filter">
     <b-dropdown
-      :text="filter ? filter : 'All Role'"
+      :text="filter ? filter : 'All Category'"
       menu-class="w-100"
       class="dropbtn"
     >

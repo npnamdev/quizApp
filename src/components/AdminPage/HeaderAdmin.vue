@@ -44,8 +44,7 @@ export default {
     };
   },
   created() {
-    const profileData = JSON.parse(sessionStorage.getItem("profileData"));
-    this.profileData = profileData;
+    this.profileData = JSON.parse(sessionStorage.getItem("profileData"));
   },
   props: ["setNavbarMenu"],
 };

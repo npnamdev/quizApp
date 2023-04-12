@@ -8,7 +8,7 @@
           <FilterPost />
           <ShowRowPost />
         </div>
-        <button class="btnadd" @click="setModalCreateUser(true)">
+        <button class="btnadd" @click="setModalCreatePost(true)">
           <box-icon
             class="icon-btn-add"
             name="plus"
@@ -20,9 +20,26 @@
       </div>
 
       <TablePost
-        :setModalCreateUser="setModalCreateUser"
         :handleClickBtnDelete="handleClickBtnDelete"
         :handleClickBtnUpdate="handleClickBtnUpdate"
+      />
+
+      <ModalCreatePost
+        :modalCreatePost="modalCreatePost"
+        :setModalCreatePost="setModalCreatePost"
+      />
+
+      <ModalUpdatePost
+        :modalUpdatePost="modalUpdatePost"
+        :setModalUpdatePost="setModalUpdatePost"
+        :dataUpdate="dataUpdate"
+      />
+
+      <ModalDeletePost
+        :modalDeletePost="modalDeletePost"
+        :setModalDeletePost="setModalDeletePost"
+        :handkeSubmitDelete="handkeSubmitDelete"
+        :dataDelete="dataDelete"
       />
     </div>
   </div>
@@ -31,9 +48,9 @@
 
 <script>
 import TablePost from "./TablePost.vue";
-// import ModalCreateUser from "./ModalCreateUser.vue";
-// import ModalUpdateUser from "./ModalUpdateUser.vue";
-// import ModalDeleteUser from "./ModalDeleteUser.vue";
+import ModalCreatePost from "./ModalCreatePost.vue";
+import ModalUpdatePost from "./ModalUpdatePost.vue";
+import ModalDeletePost from "./ModalDeletePost.vue";
 import SearchPost from "./SearchPost.vue";
 // import PaginationUser from "./PaginationUser.vue";
 import FilterPost from "./FilterPost.vue";
@@ -42,37 +59,39 @@ import ShowRowPost from "./ShowRowPost.vue";
 export default {
   data() {
     return {
-      modalCreateUser: false,
-      modalUpdateUser: false,
-      modalDeleteUser: false,
+      modalCreatePost: false,
+      modalUpdatePost: false,
+      modalDeletePost: false,
       dataUpdate: "",
       dataDelete: "",
     };
   },
   methods: {
-    setModalCreateUser(value) {
-      this.modalCreateUser = value;
+    setModalCreatePost(value) {
+      this.modalCreatePost = value;
     },
-    setModalUpdateUser(value) {
-      this.modalUpdateUser = value;
+
+    setModalUpdatePost(value) {
+      this.modalUpdatePost = value;
     },
-    setModalDeleteUser(value) {
-      this.modalDeleteUser = value;
+    handleClickBtnUpdate(post) {
+      this.modalUpdatePost = true;
+      this.dataUpdate = post;
     },
-    handleClickBtnUpdate(user) {
-      this.modalUpdateUser = true;
-      this.dataUpdate = user;
+
+    setModalDeletePost(value) {
+      this.modalDeletePost = value;
     },
-    handleClickBtnDelete(user) {
-      this.modalDeleteUser = true;
-      this.dataDelete = user;
+    handleClickBtnDelete(post) {
+      this.modalDeletePost = true;
+      this.dataDelete = post;
     },
   },
   components: {
     TablePost,
-    // ModalCreateUser,
-    // ModalUpdateUser,
-    // ModalDeleteUser,
+    ModalCreatePost,
+    ModalUpdatePost,
+    ModalDeletePost,
     // PaginationUser,
     SearchPost,
     FilterPost,
@@ -80,6 +99,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getAllPosts");
+    this.$store.dispatch("getAllCategorys");
   },
 };
 </script>
