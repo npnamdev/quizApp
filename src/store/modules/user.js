@@ -109,6 +109,11 @@ export default {
                         return item;
                     });
                     commit("setUsers", updatedUsers);
+
+                    commit('setProfileData', res.DT)
+                    sessionStorage.setItem('profileData', JSON.stringify(res.DT))
+
+
                     toast.success(res.EM, {
                         autoClose: 3000,
                         position: toast.POSITION.BOTTOM_RIGHT,
@@ -167,6 +172,27 @@ export default {
                         autoClose: 3000,
                         position: toast.POSITION.BOTTOM_RIGHT,
                     });
+                } else {
+                    toast.error(res.EM, {
+                        autoClose: 3000,
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+
+
+        async logoutAdmin({ commit }, { $router, handleClone }) {
+            try {
+                const res = await axios.post('v1/api/logout');
+                if (res.EC === 0) {
+                    sessionStorage.removeItem('token');
+                    sessionStorage.removeItem('profileData');
+                    $router.push('/login');
+                    handleClone();
                 } else {
                     toast.error(res.EM, {
                         autoClose: 3000,

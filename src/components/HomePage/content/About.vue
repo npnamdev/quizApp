@@ -6,8 +6,8 @@
         <h2>{{ post.title }}</h2>
         <p>{{ post.description }}</p>
         <div v-html="post.content"></div>
-        <p>tác giả: {{ post.author.username }}</p>
-        <p>Danh mục: {{ post.category.name }}</p>
+        <p>tác giả: {{ post?.author?.username }}</p>
+        <p>Danh mục: {{ post?.category?.name }}</p>
       </a>
     </li>
   </ul>

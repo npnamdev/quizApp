@@ -5,7 +5,7 @@ export default {
     state() {
         return {
             posts: [],
-            limit: 5,
+            limit: 8,
             page: 1,
             // search: "",
             // filter: "",
@@ -52,6 +52,8 @@ export default {
         async getAllPosts({ commit, state }) {
             try {
                 const res = await axios.get(`v1/api/posts?limit=${state.limit}&page=${state.page}`);
+
+                console.log(res);
                 if (res.EC === 0) {
                     commit('setPosts', res.DT);
                     state.totalPost = res.totalPost;

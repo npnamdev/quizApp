@@ -31,7 +31,6 @@ export default {
     },
     checkToken() {
       const token = sessionStorage.getItem("token");
-      const profileData = sessionStorage.getItem("profileData");
       if (token) {
         const decoded = jwt_decode(token);
         const currentTime = Date.now() / 1000;

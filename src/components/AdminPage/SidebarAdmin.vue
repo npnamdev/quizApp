@@ -124,9 +124,14 @@ export default {
     setModalShow(value) {
       this.modalShow = value;
     },
-    handleLogout() {
-      this.$router.push("/login");
+    handleClone() {
       setModalShow(false);
+    },
+    async handleLogout() {
+      await this.$store.dispatch("logoutAdmin", {
+        handleClone: this.handleClone,
+        $router: this.$router,
+      });
     },
   },
   props: ["navbarMenu"],

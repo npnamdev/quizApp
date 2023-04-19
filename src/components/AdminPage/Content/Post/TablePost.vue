@@ -8,8 +8,8 @@
           <th class="col-4">Category</th>
           <th class="col-3">Author</th>
           <th class="col-5">Status</th>
-          <th class="col-6">CreatedAt</th>
-          <th class="col-7">UpdatedAt</th>
+          <th class="col-6">CreateAt</th>
+          <th class="col-7">UpdateAt</th>
           <th class="col-7">Action</th>
         </tr>
       </thead>
@@ -20,8 +20,8 @@
             <td>
               <span class="wp-2"> {{ post.title }} </span>
             </td>
-            <td class="col-2">{{ post.category.name }}</td>
-            <td class="col-3">{{ post.author.username }}</td>
+            <td class="col-2">{{ post?.category?.name }}</td>
+            <td class="col-3">{{ post?.author?.username }}</td>
             <td class="col-4">Pending</td>
             <td class="col-5">{{ formatDate(post.createdAt) }}</td>
             <td class="col-6">{{ formatDate(post.updatedAt) }}</td>
@@ -121,7 +121,7 @@ td {
   border-collapse: collapse;
   line-height: 1.7;
   text-align: left;
-  color: rgb(89, 85, 85);
+  color: rgb(61, 59, 59);
   font-size: 14px;
   cursor: pointer;
 }
