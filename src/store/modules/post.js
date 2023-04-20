@@ -64,6 +64,19 @@ export default {
             }
         },
 
+        async getDetailPosts({ commit, state }, postId) {
+            try {
+                const res = await axios.get(`v1/api/posts/${postId}`);
+
+                console.log(res);
+                if (res.EC === 0) {
+                    commit('setPosts', res.DT);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
 
 
         async updatePost({ commit, dispatch, state }, { post, handleClone }) {

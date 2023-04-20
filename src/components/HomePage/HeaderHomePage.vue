@@ -2,7 +2,7 @@
   <div id="header">
     <nav class="navbar container">
       <div class="nav-left">
-        <router-link to="/">
+        <router-link to="/" class="nav-logo">
           <img :src="logoPath" />
         </router-link>
         <ul class="nav-menu">
@@ -10,7 +10,7 @@
             <router-link class="nav-link" to="/"> Home </router-link>
           </li>
           <li>
-            <router-link class="nav-link" to="/about"> About </router-link>
+            <router-link class="nav-link" to="/posts/all"> Posts </router-link>
           </li>
           <li>
             <router-link class="nav-link" to="/services">
@@ -81,6 +81,10 @@ export default {
   justify-content: space-between;
 }
 
+#header nav.navbar a.nav-logo {
+  margin-left: -12px;
+}
+
 #header nav.navbar a.nav-logo img {
   cursor: pointer;
 }
@@ -89,7 +93,7 @@ export default {
   display: flex;
   margin-bottom: 0;
   padding: 0px;
-  margin-left: 25px;
+  margin-left: 20px;
 }
 
 #header nav.navbar ul.nav-menu li {

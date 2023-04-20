@@ -3,7 +3,9 @@
     <SidebarAdmin :navbarMenu="navbarMenu" />
     <div id="wp-content">
       <HeaderAdmin :setNavbarMenu="setNavbarMenu" />
-      <router-view />
+      <transition name="fade">
+        <router-view />
+      </transition>
     </div>
   </div>
 </template>
@@ -62,6 +64,14 @@ export default {
 
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 #wp-content {
   width: calc(100% - 250px);
   position: absolute;

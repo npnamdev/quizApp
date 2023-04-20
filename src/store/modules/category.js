@@ -43,6 +43,18 @@ export default {
             }
         },
 
+        async getDetailCategorys({ commit, state }, categoryId) {
+            try {
+                const res = await axios.get(`v1/api/categorys/${categoryId}`);
+
+                if (res.EC === 0) {
+                    commit('setCategorys', res.DT);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
 
 
         async updateCategory({ commit, dispatch, state }, { category, handleClone }) {

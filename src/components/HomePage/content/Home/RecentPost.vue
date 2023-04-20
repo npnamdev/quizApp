@@ -2,7 +2,7 @@
   <div id="wp-new-post" class="container">
     <div class="new-post-head">
       <h2 class="title">Recent posts</h2>
-      <router-link class="btn-show-all" to="/">
+      <router-link class="btn-show-all" to="/posts/all">
         <span>Show all</span>
         <box-icon
           color="#7d7b7b"
@@ -17,12 +17,12 @@
 
     <ul class="new-post-body">
       <li v-for="post in $store.state.posts.posts" :key="post._id">
-        <router-link class="image" to="/">
+        <router-link class="image" :to="'/posts/all/' + post._id">
           <img :src="post.image ? post.image : imageNonePath" />
         </router-link>
 
         <div class="wp-text">
-          <router-link class="title" to="/">
+          <router-link class="title" :to="'/posts/' + post._id">
             {{ post.title }}
           </router-link>
 

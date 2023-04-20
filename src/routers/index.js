@@ -2,7 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import index from '../components/HomePage/index.vue';
 import Home from '../components/HomePage/content/Home/Home.vue';
-import About from '../components/HomePage/content/About.vue';
+import Post from '../components/HomePage/content/Post/Post.vue';
+import PostDetail from '../components/HomePage/content/PostDetail.vue';
+import PostByCategory from '../components/HomePage/content/PostByCategory.vue';
+
 import Blog from '../components/HomePage/content/Blog.vue';
 import Contact from '../components/HomePage/content/Contact.vue';
 
@@ -25,21 +28,34 @@ const routes = [
                 component: Home
             },
             {
-                path: 'about',
-                component: About
+                path: 'posts/all',
+                component: Post,
             },
             {
-                path: 'service',
-                component: ManageCategory
+                path: 'posts/all/:id',
+                component: PostDetail
+            },
+            {
+                path: 'posts/:category',
+                component: PostByCategory,
+            },
+            {
+                path: 'posts/:category/:id',
+                // component: PostDetailByCategory,
             },
             {
                 path: 'blog',
                 component: Blog,
             },
             {
+                path: 'service',
+                component: ManageCategory
+            },
+            {
                 path: 'contact',
                 component: Contact,
             },
+
         ],
     },
     {
@@ -82,6 +98,13 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition;
+        } else {
+            return { top: 0 };
+        }
+    },
 })
 
 export default router;

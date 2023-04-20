@@ -22,3 +22,9 @@
     width: 1100px !important;
     margin: 0px auto;
 }
+
+.test li a {
+    text-decoration: none !important;
+    color: #333;
+    font-size: 14px;
+}
